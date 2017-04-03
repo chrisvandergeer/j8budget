@@ -4,10 +4,7 @@ import arch.entity.NonPersistendEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by geerc01 on 31-3-2017.
@@ -19,6 +16,8 @@ public class Transaktie implements NonPersistendEntity {
     private BigDecimal bedrag;
     private Rekening tegenrekening = new Rekening();
     private List<String> omschrijving = new ArrayList<>();
+
+    private Set<Tag> tags = new HashSet<>();
 
     public Transaktie(String rekeningnummer, LocalDate transaktiedatum, BigDecimal bedrag, String... omschrijvingsregels) {
         this.rekening.setNummer(rekeningnummer);
@@ -71,6 +70,21 @@ public class Transaktie implements NonPersistendEntity {
 
     public Integer getMaand() {
         return transaktiedatum.getMonthValue();
+    }
+
+    public boolean hasTag(String tagName) {
+        return tags.stream().anyMatch(t -> tagName.equals(t.getNaam()));
+    }
+
+    public boolean addTag(Tag tag) {
+        return this.tags.add(tag);
+    }
+
+    public Tag getTag(String tagNaam) {
+        return this.tags.stream()
+                .filter(t -> tagNaam.equals(t.getNaam()))
+                .findFirst()
+                .get();
     }
 
     @Override

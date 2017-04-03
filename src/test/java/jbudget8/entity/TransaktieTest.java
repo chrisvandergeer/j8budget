@@ -44,6 +44,13 @@ public class TransaktieTest {
     }
 
     @Test
+    public void testHasTag() {
+        assertFalse(transaktie.hasTag("foo"));
+        transaktie.addTag(new Tag("foo"));
+        assertTrue(transaktie.hasTag("foo"));
+    }
+
+    @Test
     public void testToString() {
         assertEquals(
                 "Transaktie{rekeningnummer='NL60RABO0123456789', transaktiedatum=2017-03-31, bedrag=101, " +

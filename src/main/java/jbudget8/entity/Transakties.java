@@ -3,6 +3,7 @@ package jbudget8.entity;
 import arch.entity.NonPersistendEntity;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Created by chris on 03-04-17.
@@ -37,5 +38,9 @@ public class Transakties implements NonPersistendEntity {
 
     public List<Transaktie> getWrappedTransakties() {
         return Collections.unmodifiableList(this.wrappedTransakties);
+    }
+
+    public Stream<Transaktie> stream() {
+        return wrappedTransakties.stream();
     }
 }
